@@ -9,46 +9,39 @@ import {
 } from 'react-native';
 import {colors} from '../utils/colorManager';
 import {commonStyles, textManger} from '../utils/textStyleManager';
-import {WelcomeTexts} from '../utils/textManager';
+import {LogOutText, WelcomeTexts} from '../utils/textManager';
 import ButtonComponent from '../sharedcomponents/ButtonComponent';
+import {useAuthStore, USER} from '../store/authStore';
 
-const Welcome = ({navigation}) => {
+const LogOut = ({navigation}) => {
+  const {auth,setAuth} = useAuthStore();
   const width = useWindowDimensions().width;
   const height = useWindowDimensions().height;
   const onPress = () => {
-    navigation.navigate('signup');
+    setAuth(USER);
   };
   return (
     <View style={commonStyles.flexView}>
       <Image
-        style={{width: width, height: height * 0.6}}
-        source={require('../assets/images/welcome.png')}
+        style={{width: width, height: height * 0.3, marginTop: height * 0.2}}
+        source={require('../assets/images/logo.png')}
       />
       <Text style={[textManger.heading_md_default, styles.subHeading]}>
-        {WelcomeTexts.subHeading}
+        Welcome {auth.name}
       </Text>
       <View style={commonStyles.generalPadding}>
-      <ButtonComponent title={WelcomeTexts.button} onPress={onPress} /></View>
-      <Text style={[textManger.heading_sm, styles.subHeading]}>
-        {WelcomeTexts.alreadyHaveAccount}{' '}
-        <TouchableOpacity style={{marginTop: 10}}>
-          <Text
-            style={[{textDecorationLine: 'underline'}, textManger.heading_sm]}>
-            {WelcomeTexts.signIn}
-          </Text>
-        </TouchableOpacity>
-      </Text>
+        <ButtonComponent title={LogOutText.heading} onPress={onPress} />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   subHeading: {
-    color: colors.gray,
     padding: 45,
     justifyContent: 'center',
     textAlign: 'center',
   },
 });
 
-export default Welcome;
+export default LogOut;

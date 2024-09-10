@@ -25,7 +25,7 @@ const PlaceholderErrorTextInput = ({
   const isMultiLine = isMultiLineText ?? false;
   return (
     <View style={{marginVertical:5}}>
-    {outerPlaceHolder && <Text style={[textManger.heading_sm,{marginVertical:5}]}>{outerPlaceHolder}</Text>}
+    {outerPlaceHolder && <Text style={[textManger.heading_sm_bold,{marginVertical:5}]}>{outerPlaceHolder}</Text>}
       <View
         style={[
           styles.placeHolderIconView,

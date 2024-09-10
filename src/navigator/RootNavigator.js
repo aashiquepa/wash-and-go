@@ -1,19 +1,17 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import AddViewEmployee from '../screens/AddViewEmployee';
-import Home from '../screens/Dashboard';
-import { useEmployeeStore } from '../store/employeeStore';
-import SearchEmployee from '../screens/SearchEmployees';
-import Login from '../screens/Login';
-import Welcome from '../screens/Welcome';
+import {StyleSheet} from 'react-native';
 import SignIn from '../screens/SignIn';
+import SignUp from '../screens/SignUp';
+import Welcome from '../screens/Welcome';
+import {useAuthStore} from '../store/authStore';
+import LogOut from '../screens/LogOut';
 
 const Stack = createNativeStackNavigator();
 
 const RootNavigator = () => {
-  const {intializing} = useEmployeeStore();
+  const {intializing} = useAuthStore();
   return (
     <NavigationContainer>
       <HomeNavigator />
@@ -22,6 +20,7 @@ const RootNavigator = () => {
 };
 
 const HomeNavigator = () => {
+  const {auth} = useAuthStore();
   return (
     <Stack.Navigator
       initialRouteName="welcome"
@@ -29,38 +28,43 @@ const HomeNavigator = () => {
         headerBackTitleVisible: false,
       }}>
       <Stack.Group>
-      <Stack.Screen
-          name="welcome"
-          component={Welcome}
-          options={{
-            headerShown: false,
-            animation: 'fade_from_bottom',
-          }}
-        />
-        <Stack.Screen
-          name="signin"
-          component={SignIn}
-          options={{
-            headerShown: false,
-            animation: 'fade_from_bottom',
-          }}
-        />
-        <Stack.Screen
-          name="addEmployee"
-          component={AddViewEmployee}
-          options={{
-            headerShown: false,
-            animation: 'fade_from_bottom',
-          }}
-        />
-        <Stack.Screen
-          name="searchEmployee"
-          component={SearchEmployee}
-          options={{
-            headerShown: false,
-            animation: 'fade_from_bottom',
-          }}
-        />
+        {!auth.name ? (
+          <>
+            <Stack.Screen
+              name="welcome"
+              component={Welcome}
+              options={{
+                headerShown: false,
+                animation: 'fade_from_bottom',
+              }}
+            />
+            <Stack.Screen
+              name="signin"
+              component={SignIn}
+              options={{
+                headerShown: false,
+                animation: 'fade_from_bottom',
+              }}
+            />
+            <Stack.Screen
+              name="signup"
+              component={SignUp}
+              options={{
+                headerShown: false,
+                animation: 'fade_from_bottom',
+              }}
+            />
+          </>
+        ) : (
+          <Stack.Screen
+            name="logout"
+            component={LogOut}
+            options={{
+              headerShown: false,
+              animation: 'fade_from_bottom',
+            }}
+          />
+        )}
       </Stack.Group>
     </Stack.Navigator>
   );

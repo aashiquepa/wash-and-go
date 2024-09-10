@@ -20,6 +20,7 @@ const PasswordTextInput = ({
   fiveLengthErr,
   ruleErr,
   placeHolderText,
+  errorMessage,
   setErrorMessage,
   outerPlaceHolder,
 }) => {
@@ -38,14 +39,14 @@ const PasswordTextInput = ({
   return (
     <>
     <View style={{marginVertical:5}}>
-    {outerPlaceHolder && <Text style={textManger.heading_sm}>{outerPlaceHolder}</Text>}
+    {outerPlaceHolder && <Text style={textManger.heading_sm_bold}>{outerPlaceHolder}</Text>}
       <View
         style={[
           styles.placeHolderIconView,
           {
             borderColor:
               fiveLengthErr || ruleErr
-                ? colors.black
+                ? colors.error
                 : colors.black,
           },
         ]}>
@@ -58,7 +59,7 @@ const PasswordTextInput = ({
               color:
                 fiveLengthErr || ruleErr
                   ? colors.error
-                : colors.dark,
+                : colors.black,
             },
             styles.flexView,
           ]}
@@ -84,11 +85,11 @@ const PasswordTextInput = ({
       </View>
 
       {fiveLengthErr && (
-        <Text style={textManger.heading_sm}>{fiveLengthText}</Text>
+        <Text style={[textManger.heading_sm,{color:colors.error}]}>{fiveLengthText}</Text>
       )}
-      {ruleErr && <Text style={textManger.heading_sm}>{ruleErrorText}</Text>}
-      {setErrorMessage && (
-        <Text style={textManger.heading_sm}>{setErrorMessage}</Text>
+      {ruleErr && <Text style={[textManger.heading_sm,{color:colors.error}]}>{ruleErrorText}</Text>}
+      {errorMessage && (
+        <Text style={[textManger.heading_sm,{color:colors.error}]}>{setErrorMessage}</Text>
       )}
     </View>
     </>
