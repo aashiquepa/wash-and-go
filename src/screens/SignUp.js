@@ -148,7 +148,8 @@ const SignUp = ({navigation}) => {
         }
       })
       .catch(error => {
-        Alert.alert(error);
+        console.log(error);
+        Alert.alert("Invalid!");
       });
   };
   return (
